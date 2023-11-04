@@ -99,7 +99,7 @@
   width: 100%;
 }
 .searchBox {
-  padding: 10px 15px;  
+  padding: 10px 15px;
 }
 
 .ipv_dial-code {
@@ -110,7 +110,8 @@
 }
 .ipv_flag-box,
 .ipv_country-name,
-.ipv_code-box,.ipv_dial-code {
+.ipv_code-box,
+.ipv_dial-code {
   margin-right: 0;
   margin-left: 6px;
 }
@@ -137,4 +138,4 @@
   line-height: 1.5em;
 }
 
-@import './flags';
+@import "./flags";
