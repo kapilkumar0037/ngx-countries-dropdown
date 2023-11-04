@@ -85,9 +85,23 @@
 .ipv_country.ipv_highlight {
   background-color: rgba(0, 0, 0, 0.05);
 }
-.searchBox {
-  padding: 10px 15px;
+
+.searchBox input {
+  box-sizing: border-box;
+  height: 35px;
+  margin: 0;
+  padding: 6px 12px;
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 100%;
+  color: inherit;
+  border: 1px solid #ccc;
+  width: 100%;
 }
+.searchBox {
+  padding: 10px 15px;  
+}
+
 .ipv_dial-code {
   color: #999;
 }
@@ -122,3 +136,5 @@
   padding: 10px 10px;
   line-height: 1.5em;
 }
+
+@import './flags';
