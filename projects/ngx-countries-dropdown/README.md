@@ -93,7 +93,7 @@ npm i ngx-countries-dropdown
 <table role="table">
  <tbody><tr>
   <td><b>onCountryChange</b> </td>
-  <td>Country type ICountry </td>
+  <td>Country type <b>ICountry</b> </td>
   <td>returns the selected country</td>
  </tr>
 
@@ -101,6 +101,7 @@ npm i ngx-countries-dropdown
 
 ### IConfig properties and usage
 Config properties can be used to control what will be displayed in the country list and for the selected country.
+
 Exported interface 
 ```
 export interface IConfig {
@@ -118,3 +119,121 @@ export interface IConfig {
   
 }
 ```
+<table role="table">
+ <tbody><tr>
+  <td><b>hideFlag</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to hide flag from country list or selected country</td>
+ </tr>
+<tr>
+  <td><b>hideCode</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to hide country code </td>
+ </tr>
+   <tr>
+  <td><b>hideName</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to hide country name </td>
+ </tr>
+    <tr>
+  <td><b>hideSearch</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to hide search field from country list </td>
+ </tr>
+     <tr>
+  <td><b>hideDialCode</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to hide dial code </td>
+ </tr>
+      <tr>
+  <td><b>displayCapital</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to display country capital </td>
+ </tr>
+  <tr>
+  <td><b>displayLanguageCode</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to display country language code </td>
+ </tr>
+   <tr>
+  <td><b>displayLanguageName</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to display country language name </td>
+ </tr>
+  <tr>
+  <td><b>displayCurrencyCode</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to display country currency code </td>
+ </tr>
+  <tr>
+  <td><b>displayCurrencyName</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to display country currency name </td>
+ </tr>
+  <tr>
+  <td><b>displayCurrencySymbol</b> </td>
+  <td>Boolean, Default value: false </td>
+  <td>to display country currency symbol </td>
+ </tr>
+</tbody></table>
+
+### Output on country selection
+On country selection output of ICountry type will be emitted. 
+Handle country change event
+```
+<lib-country-list (onCountryChange)="onCountryChange($event)"></lib-country-list>
+```
+```
+  onCountryChange(country: ICountry){
+    console.log(country);
+  }
+```
+output in console
+```
+{
+    "name": "Afghanistan (‫افغانستان‬‎)",
+    "code": "AF",
+    "capital": "Kabul",
+    "region": "AS",
+    "currency": {
+        "code": "AFN",
+        "name": "Afghan afghani",
+        "symbol": "؋"
+    },
+    "language": {
+        "code": "ps",
+        "name": "Pashto"
+    },
+    "dialling_code": "+93",
+    "isoCode": "004"
+}
+```
+### exported ICountry interface
+
+```
+export interface ICountry {
+  name?: string;
+  code?: string;
+  capital?: string;
+  region?: string;
+  currency?: ICurrency
+  language?: ILanguage
+  dialling_code?: string;
+  isoCode?: string;
+  demonym?: string;
+}
+
+export interface ICurrency {
+  code?: string | null;
+  name?: string;
+  symbol?: string | null;
+}
+
+export interface ILanguage {
+    code?: string;
+    name?: string;
+    iso639_2?: string,
+    nativeName?: string
+}
+```
+
