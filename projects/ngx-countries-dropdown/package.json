@@ -1,6 +1,7 @@
 {
   "name": "ngx-countries-dropdown",
   "version": "1.0.1",
+  "description": "Customizable countries dropdown with flags, dial code, language and currency details developed in Angular.",
   "peerDependencies": {
     "@angular/common": "^16.2.0",
     "@angular/core": "^16.2.0"
@@ -8,5 +9,16 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "author": "Kapil Kumar <kapilkumar0037@gmail.com>",
+   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kapilkumar0037/ngx-countries-dropdown.git"
+  },
+   "keywords": [
+    "countries dropdown",
+    "angular"
+  ],
+  "homepage": "https://github.com/kapilkumar0037/ngx-countries-dropdown#readme"
   "sideEffects": false
 }
