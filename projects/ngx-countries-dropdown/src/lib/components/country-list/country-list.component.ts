@@ -1,4 +1,11 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { IConfig, ICountry } from '../../models';
 import { CountryService } from '../../services/country.service';
 
@@ -15,16 +22,19 @@ export class CountryListComponent implements OnInit {
   filteredCountries: ICountry[] = [];
   selectedCountry: ICountry = {};
   displayList = false;
+  @Input() selectedCountryCode: string = '';
   @Input() preferredCountryCodes: string[] = [];
   @Input() blockedCountryCodes: string[] = [];
   @Input() allowedCountryCodes: string[] = [];
-  @Input() selectedCountryConfig:IConfig = {}
-  @Input() countryListConfig:IConfig = {}
+  @Input() selectedCountryConfig: IConfig = {};
+  @Input() countryListConfig: IConfig = {};
   @Output() onCountryChange = new EventEmitter();
   constructor(private service: CountryService) {}
 
   ngOnInit(): void {
-    this.countryList = this.service.getAllAllowedCountries(this.allowedCountryCodes);
+    this.countryList = this.service.getAllAllowedCountries(
+      this.allowedCountryCodes
+    );
     this.countriesExpectBlocked = this.service.getFilteredCountries(
       this.countryList,
       this.blockedCountryCodes
@@ -34,6 +44,15 @@ export class CountryListComponent implements OnInit {
       this.preferredCountryCodes
     );
     this.filteredCountries = this.service.getStandardCountries();
+    if (this.selectedCountryCode) {
+      const country = this.countriesExpectBlocked.find(
+        (x) => x.code === this.selectedCountryCode.toUpperCase()
+      );
+      if(country){
+        this.selectedCountry= country;
+        this.onCountryChange.emit(this.selectedCountry);
+      }
+    }
   }
 
   changeCountry(country: ICountry) {
@@ -56,8 +75,8 @@ export class CountryListComponent implements OnInit {
     );
   }
 
-  @HostListener('document:click', ['$event']) 
-  onDocumentClick(event:any) {    
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: any) {
     this.displayList = false;
   }
 }

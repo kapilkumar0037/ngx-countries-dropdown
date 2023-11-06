@@ -1,6 +1,6 @@
 # NGX Countries dropdown
 
-A highly customizable library with no dependencies for angular applications, which provides a countries dropdown component with the following features. This library has been created without using any CSS framework.
+Angular library with customizable countries dropdown component with the following features. It is not dependent on any css framework.
 
 ## Features
 - To create a country dropdown with flags
@@ -59,11 +59,15 @@ npm i ngx-countries-dropdown
   <td>Type and default values</td>
   <td>Description</td>
  </tr>
-
+<tr>
+  <td><b>selectedCountryCode</b></td>
+  <td>Type: string ,Default value: empty string</td>
+  <td>country code which needs to be selected by default. Ex, for India pass 'in'</td>
+ </tr>
  <tr>
   <td><b>preferredCountryCodes</b></td>
   <td>Type: string array(string[]),Default value: []</td>
-  <td>Consumer has to provide the list of country codes which needs to be displayed on top section. ex. if user provided ['in', 'us'], India and United States will be displayed on top</td>
+  <td>the list of country codes which needs to be displayed on top section. ex. if user provided ['in', 'us'], India and United States will be displayed on top</td>
  </tr>
  <tr>
   <td><b>blockedCountryCodes</b></td>
