@@ -58,7 +58,7 @@
   background-color: white;
   border: 1px solid #ccc;
   white-space: nowrap;
-  max-height: 200px;
+  max-height: 201px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
@@ -124,7 +124,8 @@
 
 .ipv_flag-box,
 .ipv_country-name,
-.ipv_code-box, .ipv_dial-code {
+.ipv_code-box,
+.ipv_dial-code {
   margin-right: 0;
   margin-left: 6px;
 }

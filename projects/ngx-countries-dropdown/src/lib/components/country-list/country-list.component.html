@@ -2,7 +2,7 @@
     <div class="ipv_selected-item" role="combobox" tabindex="0" title="{{selectedCountry.name}}" (click)="toggleList()">
         <ng-container *ngIf="selectedCountry?.name">
             <div *ngIf="!selectedCountryConfig.hideFlag" class="ipv_flag ipv_{{selectedCountry.code?.toLowerCase()}}"></div>
-            <div>
+            <div style="padding-right: 10px">
                 <span *ngIf="!selectedCountryConfig.hideCode" class="ipv_code-box">{{selectedCountry.code}}</span>
                 <span *ngIf="!selectedCountryConfig.hideName" class="ipv_country-name">{{selectedCountry.name}}</span>
                 <span *ngIf="!selectedCountryConfig.hideDialCode" class="ipv_country-name">{{selectedCountry.dialling_code}}</span>

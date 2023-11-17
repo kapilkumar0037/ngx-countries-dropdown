@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IConfig } from 'ngx-countries-dropdown';
+import { IConfig } from 'projects/ngx-countries-dropdown/src/lib/models';
 
 @Component({
   selector: 'app-root',

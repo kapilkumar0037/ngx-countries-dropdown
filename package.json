@@ -1,13 +1,15 @@
 {
   "name": "ngx-countries-dropdown",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:sass": "sass projects/ngx-countries-dropdown/styles/dropdown.scss projects/ngx-countries-dropdown/assets/styles.css"
+    "build:sass": "sass projects/ngx-countries-dropdown/styles/dropdown.scss projects/ngx-countries-dropdown/assets/styles.css",
+    "build:prod": "npm run build:sass && ng build ngx-countries-dropdown -c=production",
+    "publish": "npm publish dist/ngx-countries-dropdown"
   },
   "private": true,
   "dependencies": {
