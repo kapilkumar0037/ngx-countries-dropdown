@@ -14,7 +14,7 @@ Angular library with customizable countries dropdown component with the followin
 - Capability to block specific countries
 
 ## Demo 
-Access all features [demo here](www.google.com)
+Access all features <a href="www.google.com" target="_blank">demo here</a>
 
 ## Getting started
 Hope you already have an angular project, if not please create one using the below commands
