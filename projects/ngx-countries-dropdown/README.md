@@ -14,7 +14,7 @@ Angular library with customizable countries dropdown component with the followin
 - Capability to block specific countries
 
 ## Demo 
-Access all features [demo here](https://kapilkumar0037.github.io/ngx-countries-dropdown-demo){:target="_blank"}.
+Access all features <a href="https://kapilkumar0037.github.io/ngx-countries-dropdown-demo">demo here</a>.
 
 ## Getting started
 Hope you already have an angular project, if not please create one using the below commands
