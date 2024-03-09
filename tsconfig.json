@@ -12,9 +12,7 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "ngx-countries-dropdown": [
-        "dist/ngx-countries-dropdown"
-      ]
+      "ngx-countries-dropdown": ["dist/ngx-countries-dropdown"]
     },
     "declaration": false,
     "downlevelIteration": true,
@@ -24,10 +22,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

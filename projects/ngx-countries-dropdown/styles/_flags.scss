@@ -1080,14 +1080,14 @@
 .ipv_flag {
   height: 15px;
   box-shadow: 0px 0px 1px 0px #888;
-  background-image: url("../assets/png/flags.png");
+  background-image: url('../assets/png/flags.png');
   background-repeat: no-repeat;
   background-color: #dbdbdb;
   background-position: 20px 0;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .ipv_flag {
-    background-image: url("../assets/png/flags@2x.png");
+    background-image: url('../assets/png/flags@2x.png');
   }
 }
 

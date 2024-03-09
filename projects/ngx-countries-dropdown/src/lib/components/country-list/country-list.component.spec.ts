@@ -7,9 +7,7 @@ describe('CountryListComponent', () => {
   let fixture: ComponentFixture<CountryListComponent>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [CountryListComponent]
-    });
+    TestBed.configureTestingModule({});
     fixture = TestBed.createComponent(CountryListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

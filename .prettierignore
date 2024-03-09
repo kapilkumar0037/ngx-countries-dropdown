@@ -13,7 +13,6 @@ yarn-error.log
 
 # IDEs and editors
 .idea/
-.nx/
 .project
 .classpath
 .c9/
@@ -41,4 +40,3 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-.angular

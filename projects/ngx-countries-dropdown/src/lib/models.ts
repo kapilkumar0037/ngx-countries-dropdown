@@ -7,10 +7,9 @@ export interface IConfig {
   displayCapital?: boolean;
   displayLanguageCode?: boolean;
   displayLanguageName?: boolean;
-  displayCurrencyCode?: boolean
-  displayCurrencyName?: boolean
-  displayCurrencySymbol?: boolean
-  
+  displayCurrencyCode?: boolean;
+  displayCurrencyName?: boolean;
+  displayCurrencySymbol?: boolean;
 }
 
 export interface ICountry {
@@ -18,8 +17,8 @@ export interface ICountry {
   code?: string;
   capital?: string;
   region?: string;
-  currency?: ICurrency
-  language?: ILanguage
+  currency?: ICurrency;
+  language?: ILanguage;
   dialling_code?: string;
   isoCode?: string;
   demonym?: string;
@@ -32,8 +31,8 @@ export interface ICurrency {
 }
 
 export interface ILanguage {
-    code?: string;
-    name?: string;
-    iso639_2?: string,
-    nativeName?: string
+  code?: string;
+  name?: string;
+  iso639_2?: string;
+  nativeName?: string;
 }
