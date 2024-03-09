@@ -10,12 +10,12 @@
     "tslib": "^2.3.0"
   },
   "author": "Kapil Kumar <kapilkumar0037@gmail.com>",
-   "license": "MIT",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kapilkumar0037/ngx-countries-dropdown.git"
   },
-   "keywords": [
+  "keywords": [
     "countries dropdown",
     "angular"
   ],
