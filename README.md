@@ -3,6 +3,7 @@
 A highly customizable library with no dependencies for angular applications, which provides a countries dropdown component with the following features. This library has been created without using any CSS framework.
 
 ## Features
+
 - To create a country dropdown with flags
 - Searchable country dropdown
 - Use as dial code dropdown
@@ -14,23 +15,31 @@ A highly customizable library with no dependencies for angular applications, whi
 - Capability to block specific countries
 
 ## Getting started
+
 Hope you already have an angular project, if not please create one using the below commands
+
 ```
 npm install -g @angular/cli
 ng new my-app
 cd my-app
 ng serve --open
 ```
+
 1. once the angular application setup is ready, install the Ngx Countries dropdown using the following command
+
 ```
 npm i ngx-countries-dropdown
 ```
+
 2. Add the CSS
    Either import the CSS directly to styles.scss file
+
    ```
    @import  "node_modules/ngx-countries-dropdown/assets/styles.css";
    ```
+
    Or, add CSS file in angular.json in the styles array in the build section
+
    ```
     "styles": [
               "node_modules/ngx-countries-dropdown/assets/styles.css",
@@ -47,12 +56,14 @@ npm i ngx-countries-dropdown
    ```
 4. Add the country component to the component where is being used
 
-  ```html
-  <lib-country-list></lib-country-list>
-  ```
+```html
+<lib-country-list></lib-country-list>
+```
 
 ### Properties and their usage
+
 ####The below table explains what all Input properties country dropdown accepts and their usage
+
 <table role="table">
  <tbody><tr>
   <td>Property</td>
@@ -90,6 +101,7 @@ npm i ngx-countries-dropdown
 </tbody></table>
 
 ### Events
+
 <table role="table">
  <tbody><tr>
   <td><b>onCountryChange</b> </td>
@@ -100,9 +112,11 @@ npm i ngx-countries-dropdown
 </tbody></table>
 
 ### IConfig properties and usage
+
 Config properties can be used to control what will be displayed in the country list and for the selected country.
 
-Exported interface 
+Exported interface
+
 ```
 export interface IConfig {
   hideFlag?: boolean;
@@ -116,9 +130,10 @@ export interface IConfig {
   displayCurrencyCode?: boolean
   displayCurrencyName?: boolean
   displayCurrencySymbol?: boolean
-  
+
 }
 ```
+
 <table role="table">
  <tbody><tr>
   <td><b>hideFlag</b> </td>
@@ -178,17 +193,22 @@ export interface IConfig {
 </tbody></table>
 
 ### Output on country selection
-On country selection output of ICountry type will be emitted. 
+
+On country selection output of ICountry type will be emitted.
 Handle country change event
+
 ```
 <lib-country-list (onCountryChange)="onCountryChange($event)"></lib-country-list>
 ```
+
 ```
   onCountryChange(country: ICountry){
     console.log(country);
   }
 ```
+
 output in console
+
 ```
 {
     "name": "Afghanistan (‫افغانستان‬‎)",
@@ -208,6 +228,7 @@ output in console
     "isoCode": "004"
 }
 ```
+
 ### exported ICountry interface
 
 ```

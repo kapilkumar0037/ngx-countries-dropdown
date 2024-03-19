@@ -1,6 +1,6 @@
 import { ICountry } from './models';
 
-export const countryList: ICountry[] = [
+export const COUNTRIES_LIST: ICountry[] = [
   {
     name: 'Afghanistan (‫افغانستان‬‎)',
     code: 'AF',
@@ -873,7 +873,7 @@ export const countryList: ICountry[] = [
     },
     dialling_code: '+53',
     isoCode: '192',
-  },  
+  },
   {
     name: 'Cyprus (Κύπρος)',
     code: 'CY',
@@ -1849,7 +1849,7 @@ export const countryList: ICountry[] = [
     isoCode: '417',
   },
   {
-    name: "Laos (ລາວ)",
+    name: 'Laos (ລາວ)',
     code: 'LA',
     capital: 'Vientiane',
     region: 'AS',
@@ -2580,7 +2580,7 @@ export const countryList: ICountry[] = [
     isoCode: '574',
   },
   {
-    name: "North Korea (조선 민주주의 인민 공화국)",
+    name: 'North Korea (조선 민주주의 인민 공화국)',
     code: 'KP',
     capital: 'Pyongyang',
     region: 'AS',
@@ -3191,7 +3191,7 @@ export const countryList: ICountry[] = [
     dialling_code: '+232',
     isoCode: '694',
   },
-  
+
   {
     name: 'Singapore',
     code: 'SG',
@@ -3877,7 +3877,7 @@ export const countryList: ICountry[] = [
     },
     dialling_code: '+681',
     isoCode: '876',
-  },  
+  },
   {
     name: 'Yemen (‫اليمن‬‎)',
     code: 'YE',
