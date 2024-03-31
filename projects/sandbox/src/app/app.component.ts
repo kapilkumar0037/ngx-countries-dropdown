@@ -12,18 +12,18 @@ export class AppComponent {
   readonly preferredCountryCodes: string[] = ['us', 'in'];
   readonly blockedCountryCodes: string[] = [];
   readonly selectedCountryConfig: IConfig = {
-    displayCurrencyCode: true,
-    displayCurrencyName: true,
-    displayCurrencySymbol: true,
-    displayLanguageCode: true,
-    displayLanguageName: true,
+    displayCurrencyCode: false,
+    displayCurrencyName: false,
+    displayCurrencySymbol: false,
+    displayLanguageCode: false,
+    displayLanguageName: false,
   };
   readonly countryListConfig: IConfig = {
-    displayCurrencyCode: true,
-    displayCurrencyName: true,
-    displayCurrencySymbol: true,
-    displayLanguageCode: true,
-    displayLanguageName: true,
+    displayCurrencyCode: false,
+    displayCurrencyName: false,
+    displayCurrencySymbol: false,
+    displayLanguageCode: false,
+    displayLanguageName: false,
   };
   readonly allowedCountryCodes: string[] = [];
 

@@ -1,10 +1,10 @@
 {
   "name": "ngx-countries-dropdown",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Customizable countries dropdown with flags, dial code, language and currency details developed in Angular.",
   "peerDependencies": {
-    "@angular/common": "^16.2.0",
-    "@angular/core": "^16.2.0"
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
