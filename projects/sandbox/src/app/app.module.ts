@@ -5,14 +5,9 @@ import { AppComponent } from './app.component';
 import { NgxCountriesDropdownModule } from 'projects/ngx-countries-dropdown/src/lib/ngx-countries-dropdown.module';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgxCountriesDropdownModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, NgxCountriesDropdownModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

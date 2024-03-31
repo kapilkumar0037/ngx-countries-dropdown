@@ -28,10 +28,7 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/ngx-countries-dropdown/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -53,18 +50,14 @@
             "outputPath": "dist/sandbox",
             "index": "projects/sandbox/src/index.html",
             "main": "projects/sandbox/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/sandbox/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/sandbox/src/favicon.ico",
               "projects/sandbox/src/assets"
             ],
-            "styles": [
-              "projects/sandbox/src/styles.scss"
-            ],
+            "styles": ["projects/sandbox/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -98,10 +91,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "sandbox:build:production"
+              "buildTarget": "sandbox:build:production"
             },
             "development": {
-              "browserTarget": "sandbox:build:development"
+              "buildTarget": "sandbox:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -109,25 +102,20 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sandbox:build"
+            "buildTarget": "sandbox:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/sandbox/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/sandbox/src/favicon.ico",
               "projects/sandbox/src/assets"
             ],
-            "styles": [
-              "projects/sandbox/src/styles.scss"
-            ],
+            "styles": ["projects/sandbox/src/styles.scss"],
             "scripts": []
           }
         }

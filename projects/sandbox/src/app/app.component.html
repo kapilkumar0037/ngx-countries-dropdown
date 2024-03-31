@@ -1,7 +1,11 @@
 <div>
   <div>Country list with search</div>
-  <lib-country-list [selectedCountryCode]="'in'" [preferredCountryCodes]="preferredCountryCodes" [blockedCountryCodes]="blockedCountryCodes"
-    [allowedCountryCodes]="allowedCountryCodes" [selectedCountryConfig]="selectedCountryConfig"
-    [countryListConfig]="countryListConfig" (onCountryChange)="onCountryChange($event)"></lib-country-list>
- 
+  <lib-country-list
+    [selectedCountryCode]="'in'"
+    [preferredCountryCodes]="preferredCountryCodes"
+    [blockedCountryCodes]="blockedCountryCodes"
+    [allowedCountryCodes]="allowedCountryCodes"
+    [selectedCountryConfig]="selectedCountryConfig"
+    [countryListConfig]="countryListConfig"
+    (onCountryChange)="onCountryChange($event)" />
 </div>
