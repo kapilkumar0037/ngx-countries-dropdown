@@ -42,7 +42,7 @@ export class CountryListComponent implements OnInit {
     getCountriesBasedOnSearch(this.standardCountries(), this.searchText())
   );
 
-  readonly selectedCountry = signal<ICountry>({});
+  readonly selectedCountry = signal<ICountry | null>(null);
 
   readonly displayList = signal(false);
 
@@ -86,7 +86,7 @@ export class CountryListComponent implements OnInit {
 
       if (country) {
         this.selectedCountry.set(country);
-        this.onCountryChange.emit(this.selectedCountry());
+        this.onCountryChange.emit(country);
       }
     }
   }
@@ -94,7 +94,7 @@ export class CountryListComponent implements OnInit {
   changeCountry(country: ICountry): void {
     this.selectedCountry.set(country);
     this.displayList.set(false);
-    this.onCountryChange.emit(this.selectedCountry());
+    this.onCountryChange.emit(country);
   }
 
   toggleList(): void {
