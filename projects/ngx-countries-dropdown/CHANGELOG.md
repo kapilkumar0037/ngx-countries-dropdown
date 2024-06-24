@@ -1,5 +1,9 @@
 # Changelog
 
+## V2.0.0 (24-06-2024)
+
+- Upgraded to Angular v18
+
 ## V1.0.6 (31-03-2024)
 
 - Upgraded to Angular v17, bugfix, used new control flow and Angular signals
