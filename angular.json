@@ -45,11 +45,12 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/sandbox",
+            "outputPath": {
+              "base": "dist/sandbox"
+            },
             "index": "projects/sandbox/src/index.html",
-            "main": "projects/sandbox/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/sandbox/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -58,7 +59,8 @@
               "projects/sandbox/src/assets"
             ],
             "styles": ["projects/sandbox/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "browser": "projects/sandbox/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -77,9 +79,7 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
