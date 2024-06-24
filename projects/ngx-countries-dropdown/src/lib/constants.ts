@@ -686,23 +686,6 @@ export const COUNTRIES_LIST: ICountry[] = [
     isoCode: '140',
   },
   {
-    name: 'Central African Republic',
-    code: 'CF',
-    capital: 'Bangui',
-    region: 'AF',
-    currency: {
-      code: 'XAF',
-      name: 'Central African CFA franc',
-      symbol: 'Fr',
-    },
-    language: {
-      code: 'fr',
-      name: 'French',
-    },
-    dialling_code: '+236',
-    isoCode: '140',
-  },
-  {
     name: 'Chile',
     code: 'CL',
     capital: 'Santiago',

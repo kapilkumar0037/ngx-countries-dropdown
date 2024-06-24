@@ -31,6 +31,26 @@ ng serve --open
 
 1. once the angular application setup is ready, install the Ngx Countries dropdown using the following command
 
+### Version mapping
+<table role="table">
+ <tbody><tr>
+  <td>Angular vrsion</td>
+  <td>Supported library version</td>
+ </tr>
+<tr>
+  <td><b>18</b></td>
+  <td>~2</td>
+ </tr>
+ <tr>
+  <td><b>17</b></td>
+  <td>1.0.6</td>
+ </tr>
+  <tr>
+  <td><b>16</b></td>
+  <td>1.0.5</td>
+ </tr>
+</tbody></table>
+
 ```
 npm i ngx-countries-dropdown
 ```

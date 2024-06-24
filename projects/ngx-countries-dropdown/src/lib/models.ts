@@ -14,7 +14,7 @@ export interface IConfig {
 
 export interface ICountry {
   name?: string;
-  code?: string;
+  code: string;
   capital?: string;
   region?: string;
   currency?: ICurrency;
