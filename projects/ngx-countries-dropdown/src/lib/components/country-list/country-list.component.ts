@@ -1,12 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   OnInit,
   computed,
   input,
   model,
   output,
   signal,
+  viewChild,
 } from '@angular/core';
 import { IConfig, ICountry } from '../../models';
 import {
@@ -29,6 +31,7 @@ import { FormsModule } from '@angular/forms';
   },
 })
 export class CountryListComponent implements OnInit {
+  search = viewChild<ElementRef>('search');
   readonly searchText = model('');
 
   readonly standardCountries = computed(() =>
@@ -45,6 +48,7 @@ export class CountryListComponent implements OnInit {
   readonly selectedCountry = signal<ICountry | null>(null);
 
   readonly displayList = signal(false);
+  readonly displaySearch = signal(false);
 
   readonly selectedCountryCode = input('');
 
@@ -95,13 +99,22 @@ export class CountryListComponent implements OnInit {
     this.selectedCountry.set(country);
     this.displayList.set(false);
     this.onCountryChange.emit(country);
+    this.displaySearch.set(false);
+    this.searchText.set('');
   }
 
   toggleList(): void {
     this.displayList.update(isDisplayed => !isDisplayed);
+    if(this.displayList()=== true){
+      this.displaySearch.set(true);
+      setTimeout(() => {
+       this.search()?.nativeElement.focus();        
+      }, 10);
+    }
   }
 
   onDocumentClick(): void {
     this.displayList.set(false);
+    this.displaySearch.set(false);
   }
 }
