@@ -23,7 +23,7 @@ export const getPreferredCountries = (
     );
   }
 
-  return countriesToFilter;
+  return [];
 };
 
 export const getFilteredCountries = (
