@@ -16,7 +16,6 @@
   top: 0;
   bottom: 0;
   right: 0;
-  padding: 1px;
 }
 
 .ipv_selected-item {
@@ -53,7 +52,7 @@
   z-index: 2;
   list-style: none;
   padding: 0;
-  margin: 0 0 0 -1px;
+  margin: 0;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
   background-color: white;
   border: 1px solid #ccc;
@@ -61,6 +60,7 @@
   max-height: 201px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  width: 100%;
 }
 
 @media (max-width: 500px) {
@@ -97,21 +97,26 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.searchBox input {
+input.ipv_search_box {
   box-sizing: border-box;
-  height: 35px;
   margin: 0;
-  padding: 6px 12px;
-  border-radius: 2px;
   font-family: inherit;
   font-size: 100%;
   color: inherit;
-  border: 1px solid #ccc;
+  border: none;
   width: 100%;
+  position: absolute;
+  top: 0px;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.5);
+  min-height: 40px;
+  padding: 0 15px 0 15px;
+  line-height: 40px;
+  outline: none;
 }
-
-.searchBox {
-  padding: 10px 15px;
+input.ipv_search_box.filtered {
+  background-color: #ffffff;
+  border: 1px solid #a6a6a6;
 }
 
 .ipv_dial-code {
