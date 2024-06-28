@@ -1,5 +1,9 @@
 # Changelog
 
+## V2.0.3 (27-06-2024)
+
+- Search experience improved. preferred countries bug fix.
+
 ## V2.0.0 (24-06-2024)
 
 - Upgraded to Angular v18

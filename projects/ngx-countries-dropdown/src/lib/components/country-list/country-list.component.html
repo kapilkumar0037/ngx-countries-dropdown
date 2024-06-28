@@ -55,7 +55,7 @@
 
     <ul class="ipv_country-list" role="listbox" aria-label="List of countries">
       @for (prefCountry of preferredCountryList(); track prefCountry.code) {
-      <li class="ipv_country" [class.ipv_highlight]="prefCountry.code === selectedCountry()?.code" tabindex="-1"
+      <li class="ipv_country" [class.ipv_highlight]="prefCountry.code === selectedCountry()?.code" tabindex="0"
         role="option" (click)="changeCountry(prefCountry)">
         @if (!countryListConfig().hideFlag) {
         <div class="ipv_flag-box">
@@ -102,7 +102,7 @@
       <li class="ipv_divider" role="separator" aria-disabled="true"></li>
       }
       @for (country of filteredCountries(); track country.code) {
-      <li class="ipv_country" [class.ipv_highlight]="country.code === selectedCountry()?.code" tabindex="-1"
+      <li class="ipv_country" [class.ipv_highlight]="country.code === selectedCountry()?.code" tabindex="0"
         role="option" (click)="changeCountry(country)">
         @if (!countryListConfig().hideFlag) {
         <div class="ipv_flag-box">

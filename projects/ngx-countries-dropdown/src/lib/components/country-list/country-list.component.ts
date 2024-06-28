@@ -116,5 +116,6 @@ export class CountryListComponent implements OnInit {
   onDocumentClick(): void {
     this.displayList.set(false);
     this.displaySearch.set(false);
+    this.searchText.set('');
   }
 }
