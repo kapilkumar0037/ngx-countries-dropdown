@@ -32,6 +32,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class CountryListComponent implements OnInit {
   search = viewChild<ElementRef>('search');
+  dropdownList = viewChild<ElementRef>('dropdownList');
   readonly searchText = model('');
 
   readonly standardCountries = computed(() =>
@@ -48,7 +49,10 @@ export class CountryListComponent implements OnInit {
   readonly selectedCountry = signal<ICountry | null>(null);
 
   readonly displayList = signal(false);
+
   readonly displaySearch = signal(false);
+
+  readonly focusedIndex = signal(0);
 
   readonly selectedCountryCode = input('');
 
@@ -75,7 +79,6 @@ export class CountryListComponent implements OnInit {
       this.countriesExpectBlocked(),
       this.preferredCountryCodes()
     );
-
     return getCountriesBasedOnSearch(result, this.searchText());
   });
 
@@ -101,14 +104,17 @@ export class CountryListComponent implements OnInit {
     this.onCountryChange.emit(country);
     this.displaySearch.set(false);
     this.searchText.set('');
+    this.scrollToFocusedItem();
   }
 
   toggleList(): void {
     this.displayList.update(isDisplayed => !isDisplayed);
-    if(this.displayList()=== true){
+    if (this.displayList() === true) {
       this.displaySearch.set(true);
+      this.setFocusedIndex();
+      this.scrollToFocusedItem();
       setTimeout(() => {
-       this.search()?.nativeElement.focus();        
+        this.search()?.nativeElement.focus();
       }, 10);
     }
   }
@@ -117,5 +123,68 @@ export class CountryListComponent implements OnInit {
     this.displayList.set(false);
     this.displaySearch.set(false);
     this.searchText.set('');
+  }
+
+  onKeydown(event: KeyboardEvent) {
+    const filteredCountriesLength =
+      this.preferredCountryList().length + this.filteredCountries().length;
+    if (event.key === 'ArrowDown') {
+      event.preventDefault();
+      this.focusedIndex.set(
+        (this.focusedIndex() + 1) % filteredCountriesLength
+      );
+      this.scrollToFocusedItem();
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault();
+      this.focusedIndex.set(
+        (this.focusedIndex() - 1 + filteredCountriesLength) %
+          filteredCountriesLength
+      );
+      this.scrollToFocusedItem();
+    } else if (event.key === 'Enter' && this.focusedIndex() !== -1) {
+      event.preventDefault();
+      this.changeCountry(
+        [...this.preferredCountryList(), ...this.filteredCountries()][
+          this.focusedIndex()
+        ]
+      );
+    }
+  }
+
+  scrollToFocusedItem() {
+    if (this.focusedIndex() >= 0 && this.dropdownList()) {
+      const dropdownElement = this.dropdownList()?.nativeElement;
+      const focusedItemElement = dropdownElement.children[this.focusedIndex()];
+      const listItemOffsetTop = focusedItemElement.offsetTop;
+      const listItemOffsetHeight = focusedItemElement.offsetHeight;
+      const dropdownScrollTop = dropdownElement.scrollTop;
+      const dropdownOffsetHeight = dropdownElement.offsetHeight;
+
+      if (listItemOffsetTop < dropdownScrollTop) {
+        dropdownElement.scrollTop = listItemOffsetTop;
+      } else if (
+        listItemOffsetTop + listItemOffsetHeight >
+        dropdownScrollTop + dropdownOffsetHeight
+      ) {
+        dropdownElement.scrollTop =
+          listItemOffsetTop +
+          listItemOffsetHeight -
+          (dropdownOffsetHeight - 40);
+      }
+    }
+  }
+
+  onSearchTextChange() {
+    this.focusedIndex.set(0);
+  }
+
+  setFocusedIndex() {
+    if (this.selectedCountry()) {
+      const selectedIndex = [
+        ...this.preferredCountryList(),
+        ...this.filteredCountries(),
+      ].findIndex(country => country.code === this.selectedCountry()?.code);
+      this.focusedIndex.set(selectedIndex);
+    }
   }
 }
