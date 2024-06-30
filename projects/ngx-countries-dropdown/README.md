@@ -32,6 +32,7 @@ ng serve --open
 1. once the angular application setup is ready, install the Ngx Countries dropdown using the following command
 
 ### Version mapping
+
 <table role="table">
  <tbody><tr>
   <td>Angular vrsion</td>

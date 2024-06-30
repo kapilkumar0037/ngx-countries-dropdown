@@ -9,8 +9,9 @@ import { IConfig } from 'projects/ngx-countries-dropdown/src/lib/models';
 })
 export class AppComponent {
   readonly title = 'sandbox';
-  readonly preferredCountryCodes: string[] = ['us', 'in'];
+  readonly preferredCountryCodes: string[] = [];
   readonly blockedCountryCodes: string[] = [];
+  readonly selectedCountryCode = 'in';
   readonly selectedCountryConfig: IConfig = {
     displayCurrencyCode: false,
     displayCurrencyName: false,

@@ -1,5 +1,13 @@
 # Changelog
 
+## V2.1.0 (30-06-2024)
+
+- Search experience improved, country can be traversed using arrow keys and selection using enter keys. upon search first item can be selected using enter key.
+
+## V2.0.3 (27-06-2024)
+
+- Search experience improved. preferred countries bug fix.
+
 ## V2.0.0 (24-06-2024)
 
 - Upgraded to Angular v18

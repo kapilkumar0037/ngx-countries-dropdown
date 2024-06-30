@@ -124,7 +124,8 @@ input.ipv_search_box.filtered {
   color: #999;
 }
 
-.ipv_country:hover {
+.ipv_country:hover,
+.ipv_country:focus {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
