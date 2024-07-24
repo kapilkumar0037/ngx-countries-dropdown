@@ -1,6 +1,6 @@
 {
   "name": "ngx-countries-dropdown",
-  "version": "1.0.1",
+  "version": "1.0.51",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
