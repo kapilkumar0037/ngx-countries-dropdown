@@ -48,7 +48,7 @@ ng serve --open
  </tr>
   <tr>
   <td><b>16</b></td>
-  <td>1.0.5</td>
+  <td>1.0.51</td>
  </tr>
 </tbody></table>
 
