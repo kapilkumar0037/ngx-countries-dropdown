@@ -207,6 +207,23 @@ export const COUNTRIES_LIST: ICountry[] = [
     isoCode: '036',
   },
   {
+    name: 'Austria (Österreich)',
+    code: 'AT',
+    capital: 'Vienna',
+    region: 'EU',
+    currency: {
+      code: 'EUR',
+      name: 'Euro',
+      symbol: '€',
+    },
+    language: {
+      code: 'de',
+      name: 'German',
+    },
+    dialling_code: '+43',
+    isoCode: '040',
+  },
+  {
     name: 'Azerbaijan (Azərbaycan)',
     code: 'AZ',
     capital: 'Baku',
