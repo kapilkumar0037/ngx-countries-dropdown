@@ -286,3 +286,5 @@ export interface ILanguage {
     nativeName?: string
 }
 ```
+
+Please provide a star if this package helped you in any way.
