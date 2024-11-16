@@ -55,6 +55,8 @@ export class CountryListComponent implements OnInit {
   readonly focusedIndex = signal(0);
 
   readonly selectedCountryCode = input('');
+  
+  readonly placeholderText = input('Select country');
 
   readonly preferredCountryCodes = input<string[]>([]);
 
