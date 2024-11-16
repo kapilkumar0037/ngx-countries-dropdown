@@ -287,4 +287,4 @@ export interface ILanguage {
 }
 ```
 
-Please provide a star if this package helped you in any way.
+

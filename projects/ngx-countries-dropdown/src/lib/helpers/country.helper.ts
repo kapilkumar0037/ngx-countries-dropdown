@@ -45,6 +45,7 @@ export const getCountriesBasedOnSearch = (
   return countriesToSearch.filter(
     x =>
       x.name?.toLowerCase()?.includes(searchText?.toLowerCase()) ||
-      x.dialling_code?.toLowerCase()?.includes(searchText?.toLowerCase())
+      x.dialling_code?.toLowerCase()?.includes(searchText?.toLowerCase()) ||
+      x.code?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
 };

@@ -12,6 +12,7 @@ export class AppComponent {
   readonly preferredCountryCodes: string[] = [];
   readonly blockedCountryCodes: string[] = [];
   readonly selectedCountryCode = 'in';
+  readonly placeholderText = "Select country";
   readonly selectedCountryConfig: IConfig = {
     displayCurrencyCode: false,
     displayCurrencyName: false,
