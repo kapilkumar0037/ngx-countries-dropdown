@@ -48,7 +48,7 @@ ng serve --open
  </tr>
   <tr>
   <td><b>16</b></td>
-  <td>1.0.51</td>
+  <td>1.0.5</td>
  </tr>
 </tbody></table>
 
@@ -125,6 +125,11 @@ npm i ngx-countries-dropdown
   <td><b>countryListConfig</b></td>
   <td>Type: <b>IConfig</b> (see table below for IConfig properties), Default value: {}</td>
   <td>Provides config for the country list, and controls what all will be displayed in the country list. Ex. if the user do not want to see flag or dial code or name in the country list, can be controlled with this property(refer to config table for details)</td>
+ </tr>
+ <tr>
+  <td><b>placeholderText</b></td>
+  <td>Type: <b>string</b> Default value: 'Select country'</td>
+  <td>To change the default placeholder label.</td>
  </tr>
 
 </tbody></table>
@@ -286,5 +291,4 @@ export interface ILanguage {
     nativeName?: string
 }
 ```
-
-
+Please provide a star on Github if this package helped you in any way.
