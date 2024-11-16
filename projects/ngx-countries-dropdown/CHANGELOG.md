@@ -1,5 +1,10 @@
 # Changelog
 
+## V2.2.0 (16-11-2024)
+
+- Default placeholder text made configurable
+- Upgraded to latest version of Angular
+
 ## V2.1.0 (30-06-2024)
 
 - Search experience improved, country can be traversed using arrow keys and selection using enter keys. upon search first item can be selected using enter key.
