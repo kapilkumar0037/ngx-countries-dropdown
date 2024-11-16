@@ -1,6 +1,6 @@
 # NGX Countries dropdown
 
-A highly customizable library with no dependencies for angular applications, which provides a countries dropdown component with the following features. This library has been created without using any CSS framework.
+Angular library with customizable countries dropdown component with the following features. It is not dependent on any css framework.
 
 ## Features
 
@@ -14,6 +14,10 @@ A highly customizable library with no dependencies for angular applications, whi
 - Capability to display only specific countries
 - Capability to block specific countries
 
+## Demo
+
+Access all features <a href="https://kapilkumar0037.github.io/ngx-countries-dropdown-demo">demo here</a>.
+
 ## Getting started
 
 Hope you already have an angular project, if not please create one using the below commands
@@ -26,6 +30,27 @@ ng serve --open
 ```
 
 1. once the angular application setup is ready, install the Ngx Countries dropdown using the following command
+
+### Version mapping
+
+<table role="table">
+ <tbody><tr>
+  <td>Angular vrsion</td>
+  <td>Supported library version</td>
+ </tr>
+<tr>
+  <td><b>18</b></td>
+  <td>~2</td>
+ </tr>
+ <tr>
+  <td><b>17</b></td>
+  <td>1.0.6</td>
+ </tr>
+  <tr>
+  <td><b>16</b></td>
+  <td>1.0.51</td>
+ </tr>
+</tbody></table>
 
 ```
 npm i ngx-countries-dropdown
@@ -70,11 +95,15 @@ npm i ngx-countries-dropdown
   <td>Type and default values</td>
   <td>Description</td>
  </tr>
-
+<tr>
+  <td><b>selectedCountryCode</b></td>
+  <td>Type: string ,Default value: empty string</td>
+  <td>country code which needs to be selected by default. Ex, for India pass 'in'</td>
+ </tr>
  <tr>
   <td><b>preferredCountryCodes</b></td>
   <td>Type: string array(string[]),Default value: []</td>
-  <td>Consumer has to provide the list of country codes which needs to be displayed on top section. ex. if user provided ['in', 'us'], India and United States will be displayed on top</td>
+  <td>the list of country codes which needs to be displayed on top section. ex. if user provided ['in', 'us'], India and United States will be displayed on top</td>
  </tr>
  <tr>
   <td><b>blockedCountryCodes</b></td>
@@ -257,3 +286,5 @@ export interface ILanguage {
     nativeName?: string
 }
 ```
+
+Please provide a star if this package helped you in any way.
