@@ -20,15 +20,14 @@ import {
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'lib-country-list',
-  templateUrl: './country-list.component.html',
-  styleUrls: ['./country-list.component.scss'],
-  imports: [FormsModule],
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '(document:click)': 'onDocumentClick()',
-  },
+    selector: 'lib-country-list',
+    templateUrl: './country-list.component.html',
+    styleUrls: ['./country-list.component.scss'],
+    imports: [FormsModule],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '(document:click)': 'onDocumentClick()',
+    }
 })
 export class CountryListComponent implements OnInit {
   search = viewChild<ElementRef>('search');
