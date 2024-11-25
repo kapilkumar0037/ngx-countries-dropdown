@@ -38,6 +38,10 @@ ng serve --open
   <td>Angular vrsion</td>
   <td>Supported library version</td>
  </tr>
+ <tr>
+  <td><b>19</b></td>
+  <td>~3</td>
+ </tr>
 <tr>
   <td><b>18</b></td>
   <td>~2</td>
@@ -48,7 +52,7 @@ ng serve --open
  </tr>
   <tr>
   <td><b>16</b></td>
-  <td>1.0.5</td>
+  <td>1.0.51</td>
  </tr>
 </tbody></table>
 

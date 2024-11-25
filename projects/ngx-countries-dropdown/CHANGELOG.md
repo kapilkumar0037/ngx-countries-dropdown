@@ -1,9 +1,13 @@
 # Changelog
 
+## V3.0.0 (16-11-2024)
+
+- Upgraded to Angular version 19
+
 ## V2.2.0 (16-11-2024)
 
 - Default placeholder text made configurable
-- Upgraded to latest version of Angular
+- Upgraded to latest version of Angular 18
 
 ## V2.1.0 (30-06-2024)
 

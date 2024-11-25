@@ -1,3 +1,4 @@
+@use "sass:meta";
 .ipv {
   position: relative;
   display: inline-block;
@@ -166,4 +167,4 @@ input.ipv_search_box {
   line-height: 1.5em;
 }
 
-@import './flags';
+@include meta.load-css('flags');

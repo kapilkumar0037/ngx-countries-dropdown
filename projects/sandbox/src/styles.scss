@@ -1,3 +1,4 @@
+@use "sass:meta";
 /* You can add global styles to this file, and also import other style files */
 * {
   box-sizing: border-box;
@@ -10,4 +11,4 @@ body {
   color: #555;
 }
 
-@import '../../ngx-countries-dropdown/styles/dropdown.scss';
+@include meta.load-css('../../ngx-countries-dropdown/styles/dropdown.scss');
