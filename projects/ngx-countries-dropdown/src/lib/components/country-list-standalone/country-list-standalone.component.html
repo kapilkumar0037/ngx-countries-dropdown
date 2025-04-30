@@ -1,0 +1,187 @@
+<div class="ipv_dropdown" (click)="$event.stopPropagation()">
+    <div
+      class="ipv_selected-item"
+      role="combobox"
+      tabindex="0"
+      [attr.title]="selectedCountry()?.name"
+      (click)="toggleList()">
+      @if (selectedCountry(); as countryValue) {
+        @if (!selectedCountryConfig().hideFlag) {
+          <div class="ipv_flag ipv_{{ countryValue.code.toLowerCase() }}"></div>
+        }
+        <div style="padding-right: 10px">
+          @if (!selectedCountryConfig().hideCode) {
+            <span class="ipv_code-box">{{ countryValue.code }}</span>
+          }
+          @if (!selectedCountryConfig().hideName) {
+            <span class="ipv_country-name">{{ countryValue.name }}</span>
+          }
+          @if (!selectedCountryConfig().hideDialCode) {
+            <span class="ipv_country-name">{{ countryValue.dialling_code }}</span>
+          }
+          @if (selectedCountryConfig().displayCurrencySymbol) {
+            <span class="ipv_country-name">{{
+              countryValue.currency?.symbol
+            }}</span>
+          }
+          @if (selectedCountryConfig().displayCurrencyCode) {
+            <span class="ipv_country-name">{{
+              countryValue.currency?.code
+            }}</span>
+          }
+          @if (selectedCountryConfig().displayCurrencyName) {
+            <span class="ipv_country-name">{{
+              countryValue.currency?.name
+            }}</span>
+          }
+          @if (selectedCountryConfig().displayLanguageCode) {
+            <span class="ipv_country-name">{{
+              countryValue.language?.code?.toUpperCase()
+            }}</span>
+          }
+          @if (selectedCountryConfig().displayLanguageName) {
+            <span class="ipv_country-name">{{
+              countryValue.language?.name
+            }}</span>
+          }
+        </div>
+      } @else {
+        <div><span>{{placeholderText()}}</span></div>
+      }
+  
+      <div class="ipv_arrow"></div>
+    </div>
+    @if (displaySearch()) {
+      <input
+        class="ipv_search_box"
+        (keydown)="onKeydown($event)"
+        (ngModelChange)="onSearchTextChange()"
+        [class.filtered]="searchText().length > 0"
+        #search
+        autocomplete="off"
+        tabindex="0"
+        [(ngModel)]="searchText" />
+    }
+    <div [class.ipv_hide]="!displayList()">
+      <ul
+        class="ipv_country-list"
+        role="listbox"
+        aria-label="List of countries"
+        #dropdownList>
+        @for (
+          prefCountry of preferredCountryList();
+          track prefCountry.code;
+          let idx = $index
+        ) {
+          <li
+            class="ipv_country"
+            [class.ipv_highlight]="
+              prefCountry.code === selectedCountry()?.code ||
+              idx === focusedIndex()
+            "
+            tabindex="0"
+            role="option"
+            (click)="changeCountry(prefCountry)">
+            @if (!countryListConfig().hideFlag) {
+              <div class="ipv_flag-box">
+                <div
+                  class="ipv_flag ipv_{{ prefCountry.code.toLowerCase() }}"></div>
+              </div>
+            }
+            @if (!countryListConfig().hideCode) {
+              <span class="ipv_code-box">{{ prefCountry?.code }}</span>
+            }
+            @if (!countryListConfig().hideName) {
+              <span class="ipv_country-name">{{ prefCountry.name }}</span>
+            }
+            @if (!countryListConfig().hideDialCode) {
+              <span class="ipv_dial-code">{{ prefCountry.dialling_code }}</span>
+            }
+            @if (countryListConfig().displayCurrencySymbol) {
+              <span class="ipv_country-name">{{
+                prefCountry.currency?.symbol
+              }}</span>
+            }
+            @if (countryListConfig().displayCurrencyCode) {
+              <span class="ipv_country-name">{{
+                prefCountry.currency?.code
+              }}</span>
+            }
+            @if (countryListConfig().displayCurrencyName) {
+              <span class="ipv_country-name">{{
+                prefCountry.currency?.name
+              }}</span>
+            }
+            @if (countryListConfig().displayLanguageCode) {
+              <span class="ipv_country-name">{{
+                prefCountry.language?.code?.toUpperCase()
+              }}</span>
+            }
+            @if (countryListConfig().displayLanguageName) {
+              <span class="ipv_country-name">{{
+                prefCountry.language?.name
+              }}</span>
+            }
+          </li>
+        }
+        @if (
+          preferredCountryList().length > 0 && filteredCountries().length > 0
+        ) {
+          <li class="ipv_divider" role="separator" aria-disabled="true"></li>
+        }
+        @for (
+          country of filteredCountries();
+          track country.code;
+          let idx = $index
+        ) {
+          <li
+            class="ipv_country"
+            [class.ipv_highlight]="
+              country.code === selectedCountry()?.code ||
+              idx + preferredCountryList().length === focusedIndex()
+            "
+            tabindex="0"
+            role="option"
+            (click)="changeCountry(country)">
+            @if (!countryListConfig().hideFlag) {
+              <div class="ipv_flag-box">
+                <div class="ipv_flag ipv_{{ country.code.toLowerCase() }}"></div>
+              </div>
+            }
+            @if (!countryListConfig().hideCode) {
+              <span class="ipv_code-box">{{ country?.code }}</span>
+            }
+            @if (!countryListConfig().hideName) {
+              <span class="ipv_country-name">{{ country.name }}</span>
+            }
+            @if (!countryListConfig().hideDialCode) {
+              <span class="ipv_dial-code">{{ country.dialling_code }}</span>
+            }
+            @if (countryListConfig().displayCurrencySymbol) {
+              <span class="ipv_country-name">{{ country.currency?.symbol }}</span>
+            }
+            @if (countryListConfig().displayCurrencyCode) {
+              <span class="ipv_country-name">{{ country.currency?.code }}</span>
+            }
+            @if (countryListConfig().displayCurrencyName) {
+              <span class="ipv_country-name">{{ country.currency?.name }}</span>
+            }
+            @if (countryListConfig().displayLanguageCode) {
+              <span class="ipv_country-name">{{
+                country.language?.code?.toUpperCase()
+              }}</span>
+            }
+            @if (countryListConfig().displayLanguageName) {
+              <span class="ipv_country-name">{{ country.language?.name }}</span>
+            }
+          </li>
+        }
+        @if (
+          preferredCountryList().length === 0 && filteredCountries().length === 0
+        ) {
+          <li class="ipv_country">No results found.</li>
+        }
+      </ul>
+    </div>
+  </div>
+  
