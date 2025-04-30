@@ -9,4 +9,13 @@
     [selectedCountryCode]="selectedCountryCode"
     [placeholderText] = "placeholderText"
     (onCountryChange)="onCountryChange($event)" />
+
+    <lib-country-list-standalone [preferredCountryCodes]="preferredCountryCodes"
+    [blockedCountryCodes]="blockedCountryCodes"
+    [allowedCountryCodes]="allowedCountryCodes"
+    [selectedCountryConfig]="selectedCountryConfig"
+    [countryListConfig]="countryListConfig"
+    [selectedCountryCode]="selectedCountryCode"
+    [placeholderText] = "placeholderText"
+    (onCountryChange)="onCountryChange($event)" />
 </div>
