@@ -2,6 +2,8 @@
 
 Angular library with customizable countries dropdown component with the following features. It is not dependent on any css framework.
 
+If you find this library helpful, please consider giving it a ⭐ on [GitHub](https://github.com/kapilkumar0037/ngx-countries-dropdown)!
+
 ## Features
 
 - To create a country dropdown with flags
@@ -88,6 +90,8 @@ npm i ngx-countries-dropdown
 ```html
 <lib-country-list></lib-country-list>
 ```
+or 
+
 If want to use standalone component
 ```html
 <lib-country-list-standalone></lib-country-list-standalone>
