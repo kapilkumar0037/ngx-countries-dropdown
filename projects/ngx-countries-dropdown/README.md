@@ -76,8 +76,8 @@ npm i ngx-countries-dropdown
             ],
    ```
 
-3. Import NgxCountriesDropdownModule
-   import NgxCountriesDropdownModule in module where you want to add the countries dropdown, it may be app-module, some lazy loaded module or a standalone component
+3. Import NgxCountriesDropdownModule or CountryListStandaloneComponent
+   import NgxCountriesDropdownModule or CountryListStandaloneComponent in module where you want to add the countries dropdown, it may be app-module, some lazy loaded module or a standalone component
    ```
      imports: [
     NgxCountriesDropdownModule
@@ -87,6 +87,10 @@ npm i ngx-countries-dropdown
 
 ```html
 <lib-country-list></lib-country-list>
+```
+If want to use standalone component
+```html
+<lib-country-list-standalone></lib-country-list-standalone>
 ```
 
 ### Properties and their usage
