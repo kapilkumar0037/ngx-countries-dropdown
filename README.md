@@ -38,6 +38,10 @@ ng serve --open
   <td>Angular vrsion</td>
   <td>Supported library version</td>
  </tr>
+ <tr>
+  <td><b>19</b></td>
+  <td>~3</td>
+ </tr>
 <tr>
   <td><b>18</b></td>
   <td>~2</td>
@@ -48,7 +52,7 @@ ng serve --open
  </tr>
   <tr>
   <td><b>16</b></td>
-  <td>1.0.5</td>
+  <td>1.0.51</td>
  </tr>
 </tbody></table>
 
@@ -72,8 +76,8 @@ npm i ngx-countries-dropdown
             ],
    ```
 
-3. Import NgxCountriesDropdownModule
-   import NgxCountriesDropdownModule in module where you want to add the countries dropdown, it may be app-module, some lazy loaded module or a standalone component
+3. Import NgxCountriesDropdownModule or CountryListStandaloneComponent
+   import NgxCountriesDropdownModule or CountryListStandaloneComponent in module where you want to add the countries dropdown, it may be app-module, some lazy loaded module or a standalone component
    ```
      imports: [
     NgxCountriesDropdownModule
@@ -83,6 +87,10 @@ npm i ngx-countries-dropdown
 
 ```html
 <lib-country-list></lib-country-list>
+```
+If want to use standalone component
+```html
+<lib-country-list-standalone></lib-country-list-standalone>
 ```
 
 ### Properties and their usage

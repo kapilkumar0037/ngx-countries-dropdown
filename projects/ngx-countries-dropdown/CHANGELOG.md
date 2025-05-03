@@ -1,5 +1,10 @@
 # Changelog
 
+## V3.0.3 (03-05-2025)
+
+- Upgraded to latest Angular version 19
+- Standalone component added
+
 ## V3.0.0 (16-11-2024)
 
 - Upgraded to Angular version 19
