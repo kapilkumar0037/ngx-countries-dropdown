@@ -2,7 +2,7 @@
 
 Angular library with customizable countries dropdown component with the following features. It is not dependent on any css framework.
 
-If you find this library helpful, please consider giving it a ⭐ on [GitHub](https://github.com/kapilkumar0037/ngx-countries-dropdown){:target="_blank"}!
+If you find this library helpful, please consider giving it a ⭐ on [GitHub](https://github.com/kapilkumar0037/ngx-countries-dropdown)!
 
 ## Features
 
@@ -18,7 +18,7 @@ If you find this library helpful, please consider giving it a ⭐ on [GitHub](ht
 
 ## Demo
 
-Access all features [Demo](https://kapilkumar0037.github.io/ngx-countries-dropdown-demo){:target="_blank"}.
+Access all features [Demo](https://kapilkumar0037.github.io/ngx-countries-dropdown-demo).
 
 ## Getting started
 
