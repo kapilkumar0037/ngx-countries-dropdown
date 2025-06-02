@@ -18,7 +18,7 @@ If you find this library helpful, please consider giving it a ⭐ on [GitHub](ht
 
 ## Demo
 
-Access all features <a href="https://kapilkumar0037.github.io/ngx-countries-dropdown-demo">demo here</a>.
+Access all features [Demo](https://kapilkumar0037.github.io/ngx-countries-dropdown-demo).
 
 ## Getting started
 
@@ -39,6 +39,10 @@ ng serve --open
  <tbody><tr>
   <td>Angular vrsion</td>
   <td>Supported library version</td>
+ </tr>
+  <tr>
+  <td><b>20</b></td>
+  <td>~4</td>
  </tr>
  <tr>
   <td><b>19</b></td>
