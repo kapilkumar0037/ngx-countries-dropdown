@@ -1,4 +1,7 @@
 # Changelog
+## V4.0.0 (02-06-2025)
+
+- Upgraded to latest Angular version 20
 
 ## V3.0.3 (03-05-2025)
 

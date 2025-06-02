@@ -40,6 +40,10 @@ ng serve --open
   <td>Angular vrsion</td>
   <td>Supported library version</td>
  </tr>
+  <tr>
+  <td><b>20</b></td>
+  <td>~4</td>
+ </tr>
  <tr>
   <td><b>19</b></td>
   <td>~3</td>
