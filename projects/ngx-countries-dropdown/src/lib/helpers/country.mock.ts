@@ -1,4 +1,4 @@
-import { ICountry } from '../models';
+import { ICountry } from './models';
 
 export const countriesMock = (): ICountry[] => {
   return [

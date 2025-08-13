@@ -3,8 +3,8 @@ import {
   getCountriesBasedOnSearch,
   getFilteredCountries,
   getPreferredCountries,
-} from './country.helper';
-import { countriesMock } from './country.helper.mock';
+} from './country.fn';
+import { countriesMock } from './country.mock';
 
 describe('CountryHelper', () => {
   it('should be return correct value for getAllowedCountries', () => {

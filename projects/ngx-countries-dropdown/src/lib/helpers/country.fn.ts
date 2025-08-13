@@ -1,5 +1,5 @@
-import { ICountry } from '../models';
-import { COUNTRIES_LIST } from '../constants';
+import { ICountry } from './models';
+import { COUNTRIES_LIST } from './countries.const';
 
 export const getAllowedCountries = (
   allowedCountryCodes: string[]
@@ -32,7 +32,7 @@ export const getFilteredCountries = (
 ) => {
   if (countryCodes.length > 0) {
     return countriesToFilter.filter(
-      x => !countryCodes.includes(x.code?.toLowerCase()!)
+      x => !countryCodes.includes(x.code.toLowerCase())
     );
   }
   return countriesToFilter;

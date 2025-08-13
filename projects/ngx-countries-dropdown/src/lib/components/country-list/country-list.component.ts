@@ -4,35 +4,58 @@ import {
   ElementRef,
   OnInit,
   computed,
+  forwardRef,
   input,
   model,
   output,
   signal,
   viewChild,
 } from '@angular/core';
-import { IConfig, ICountry } from '../../models';
+import { IConfig, ICountry } from '../../helpers/models';
 import {
   getAllowedCountries,
   getCountriesBasedOnSearch,
   getFilteredCountries,
   getPreferredCountries,
-} from '../../helpers/country.helper';
-import { FormsModule } from '@angular/forms';
+} from '../../helpers/country.fn';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { DEFAULT_CONFIG } from '../../helpers/config.const';
+import { CONTRIES_BY_CODES } from '../../helpers/countries.const';
 
 @Component({
-    selector: 'lib-country-list',
-    templateUrl: './country-list.component.html',
-    styleUrls: ['./country-list.component.scss'],
-    imports: [FormsModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        '(document:click)': 'onDocumentClick()',
-    }
+  selector: 'lib-country-list',
+  templateUrl: './country-list.component.html',
+  styleUrls: ['./country-list.component.scss'],
+  imports: [ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  // Continuous support for < V20
+  standalone: true,
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useFactory: forwardRef(() => CountryListComponent),
+    multi: true,
+  }],
+  host: {
+    '(document:click)': 'onDocumentClick()',
+  }
 })
-export class CountryListComponent implements OnInit {
-  search = viewChild<ElementRef>('search');
-  dropdownList = viewChild<ElementRef>('dropdownList');
+export class CountryListComponent implements ControlValueAccessor, OnInit {
+
+  private readonly search = viewChild<string, ElementRef>('search', { read: ElementRef });
+
+  readonly selectedCountry = computed<ICountry | null>(() => {
+    const countryCode = this.value();
+    if (!countryCode) return null;
+    return CONTRIES_BY_CODES[countryCode] ?? null;
+  });
+
   readonly searchText = model('');
+
+  readonly isDisabled = signal(false);
+
+  onChange = (_: string | null) => { };
+
+  onTouch = (_: unknown) => { };
 
   readonly standardCountries = computed(() =>
     getFilteredCountries(
@@ -45,16 +68,14 @@ export class CountryListComponent implements OnInit {
     getCountriesBasedOnSearch(this.standardCountries(), this.searchText())
   );
 
-  readonly selectedCountry = signal<ICountry | null>(null);
+  readonly value = signal<string | null>(null);
 
   readonly displayList = signal(false);
 
   readonly displaySearch = signal(false);
 
-  readonly focusedIndex = signal(0);
-
   readonly selectedCountryCode = input('');
-  
+
   readonly placeholderText = input('Select country');
 
   readonly preferredCountryCodes = input<string[]>([]);
@@ -63,13 +84,22 @@ export class CountryListComponent implements OnInit {
 
   readonly blockedCountryCodes = input<string[]>([]);
 
-  readonly selectedCountryConfig = input<IConfig>({});
+  readonly selectedCountryConfig = input(DEFAULT_CONFIG);
 
-  readonly countryListConfig = input<IConfig>({});
+  protected readonly countryListConfig = computed<NonNullable<IConfig>>(() => {
+    return {
+      ...DEFAULT_CONFIG,
+      ...this.selectedCountryConfig(),
+    }
+  });
 
   readonly countryList = computed(() =>
     getAllowedCountries(this.allowedCountryCodes())
   );
+
+  ngOnInit(): void {
+    this.value.set(this.autoSelectCountry(this.selectedCountryCode()));
+  }
 
   readonly countriesExpectBlocked = computed(() =>
     getFilteredCountries(this.countryList(), this.blockedCountryCodes())
@@ -83,40 +113,50 @@ export class CountryListComponent implements OnInit {
     return getCountriesBasedOnSearch(result, this.searchText());
   });
 
-  readonly onCountryChange = output<ICountry>();
+  readonly onCountryChange = output<ICountry | null>();
 
-  ngOnInit(): void {
-    const selectedCountryCode = this.selectedCountryCode();
-    if (selectedCountryCode) {
-      const country = this.countriesExpectBlocked().find(
-        x => x.code === selectedCountryCode.toUpperCase()
-      );
+  autoSelectCountry(selectedCountryCode: string | null) {
+    if (!selectedCountryCode) return null;
 
-      if (country) {
-        this.selectedCountry.set(country);
-        this.onCountryChange.emit(country);
-      }
-    }
+    const country = this.countriesExpectBlocked().find(
+      x => x.code === selectedCountryCode.toUpperCase()
+    );
+
+    return country ? country.code : null;
   }
 
-  changeCountry(country: ICountry): void {
-    this.selectedCountry.set(country);
+  writeValue(countryCode: string | null): void {
+    const selectedCountryCode = this.autoSelectCountry(countryCode)
+    this.value.set(selectedCountryCode);
+  }
+
+  registerOnChange(fn: () => unknown): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => unknown): void {
+    this.onTouch = fn;
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.isDisabled.set(isDisabled);
+  }
+
+  changeCountry(countryCode: string): void {
+    this.value.set(countryCode);
     this.displayList.set(false);
-    this.onCountryChange.emit(country);
     this.displaySearch.set(false);
     this.searchText.set('');
-    this.scrollToFocusedItem();
+    this.onChange(countryCode);
+    this.onCountryChange.emit(this.selectedCountry());
+
   }
 
   toggleList(): void {
     this.displayList.update(isDisplayed => !isDisplayed);
     if (this.displayList() === true) {
       this.displaySearch.set(true);
-      this.setFocusedIndex();
-      this.scrollToFocusedItem();
-      setTimeout(() => {
-        this.search()?.nativeElement.focus();
-      }, 10);
+      setTimeout(() => this.search()?.nativeElement.focus(), 10);
     }
   }
 
@@ -124,68 +164,5 @@ export class CountryListComponent implements OnInit {
     this.displayList.set(false);
     this.displaySearch.set(false);
     this.searchText.set('');
-  }
-
-  onKeydown(event: KeyboardEvent) {
-    const filteredCountriesLength =
-      this.preferredCountryList().length + this.filteredCountries().length;
-    if (event.key === 'ArrowDown') {
-      event.preventDefault();
-      this.focusedIndex.set(
-        (this.focusedIndex() + 1) % filteredCountriesLength
-      );
-      this.scrollToFocusedItem();
-    } else if (event.key === 'ArrowUp') {
-      event.preventDefault();
-      this.focusedIndex.set(
-        (this.focusedIndex() - 1 + filteredCountriesLength) %
-          filteredCountriesLength
-      );
-      this.scrollToFocusedItem();
-    } else if (event.key === 'Enter' && this.focusedIndex() !== -1) {
-      event.preventDefault();
-      this.changeCountry(
-        [...this.preferredCountryList(), ...this.filteredCountries()][
-          this.focusedIndex()
-        ]
-      );
-    }
-  }
-
-  scrollToFocusedItem() {
-    if (this.focusedIndex() >= 0 && this.dropdownList()) {
-      const dropdownElement = this.dropdownList()?.nativeElement;
-      const focusedItemElement = dropdownElement.children[this.focusedIndex()];
-      const listItemOffsetTop = focusedItemElement.offsetTop;
-      const listItemOffsetHeight = focusedItemElement.offsetHeight;
-      const dropdownScrollTop = dropdownElement.scrollTop;
-      const dropdownOffsetHeight = dropdownElement.offsetHeight;
-
-      if (listItemOffsetTop < dropdownScrollTop) {
-        dropdownElement.scrollTop = listItemOffsetTop;
-      } else if (
-        listItemOffsetTop + listItemOffsetHeight >
-        dropdownScrollTop + dropdownOffsetHeight
-      ) {
-        dropdownElement.scrollTop =
-          listItemOffsetTop +
-          listItemOffsetHeight -
-          (dropdownOffsetHeight - 40);
-      }
-    }
-  }
-
-  onSearchTextChange() {
-    this.focusedIndex.set(0);
-  }
-
-  setFocusedIndex() {
-    if (this.selectedCountry()) {
-      const selectedIndex = [
-        ...this.preferredCountryList(),
-        ...this.filteredCountries(),
-      ].findIndex(country => country.code === this.selectedCountry()?.code);
-      this.focusedIndex.set(selectedIndex);
-    }
   }
 }
