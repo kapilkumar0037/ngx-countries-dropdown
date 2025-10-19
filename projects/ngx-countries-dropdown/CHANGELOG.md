@@ -1,4 +1,8 @@
 # Changelog
+## V4.0.2 (19-10-2025)
+
+- Country list exported
+
 ## V4.0.1 (21-08-2025)
 
 - Upgraded to latest Angular version 20
