@@ -1,4 +1,8 @@
 # Changelog
+## V4.0.3 (16-11-2025)
+
+- Updated to latest Angular version
+- country list exported
 ## V4.0.2 (19-10-2025)
 
 - Country list exported
