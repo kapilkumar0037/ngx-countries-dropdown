@@ -2,7 +2,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
@@ -11,28 +10,37 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "paths": {
-      "ngx-countries-dropdown": [
-        "dist/ngx-countries-dropdown"
-      ]
-    },
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
+    "target": "ES2024",
+    "module": "preserve",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "paths": {
+      "@ngx-countries-dropdown": [
+        "./projects/ngx-countries-dropdown/src/public_api"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./projects/ngx-countries-dropdown/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ngx-countries-dropdown/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/sandbox/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/sandbox/tsconfig.spec.json"
+    }
+  ]
 }

@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  OnInit,
   computed,
   input,
   model,
@@ -17,22 +16,28 @@ import {
   getFilteredCountries,
   getPreferredCountries,
 } from '../../helpers/country.helper';
-import { FormsModule } from '@angular/forms';
+import { form, FormValueControl, Field } from '@angular/forms/signals';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { filter, map, merge } from 'rxjs';
 
 @Component({
-    selector: 'lib-country-list',
-    templateUrl: './country-list.component.html',
-    styleUrls: ['./country-list.component.scss'],
-    imports: [FormsModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        '(document:click)': 'onDocumentClick()',
-    }
+  selector: 'lib-country-list',
+  templateUrl: './country-list.component.html',
+  styleUrls: ['./country-list.component.scss'],
+  imports: [Field],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  host: {
+    '(document:click)': 'onDocumentClick()',
+  },
 })
-export class CountryListComponent implements OnInit {
-  search = viewChild<ElementRef>('search');
-  dropdownList = viewChild<ElementRef>('dropdownList');
-  readonly searchText = model('');
+export class CountryListComponent implements FormValueControl<string | null> {
+  readonly search = viewChild<ElementRef>('search');
+  readonly dropdownList = viewChild<ElementRef>('dropdownList');
+
+  readonly searchText = signal('');
+
+  readonly searchTextForm = form(this.searchText);
 
   readonly standardCountries = computed(() =>
     getFilteredCountries(
@@ -45,7 +50,7 @@ export class CountryListComponent implements OnInit {
     getCountriesBasedOnSearch(this.standardCountries(), this.searchText())
   );
 
-  readonly selectedCountry = signal<ICountry | null>(null);
+  readonly value = model<string | null>(null);
 
   readonly displayList = signal(false);
 
@@ -53,8 +58,8 @@ export class CountryListComponent implements OnInit {
 
   readonly focusedIndex = signal(0);
 
-  readonly selectedCountryCode = input('');
-  
+  readonly selectedCountryCode = input<string | null>(null);
+
   readonly placeholderText = input('Select country');
 
   readonly preferredCountryCodes = input<string[]>([]);
@@ -67,7 +72,7 @@ export class CountryListComponent implements OnInit {
 
   readonly countryListConfig = input<IConfig>({});
 
-  readonly countryList = computed(() =>
+  private readonly countryList = computed(() =>
     getAllowedCountries(this.allowedCountryCodes())
   );
 
@@ -83,26 +88,31 @@ export class CountryListComponent implements OnInit {
     return getCountriesBasedOnSearch(result, this.searchText());
   });
 
-  readonly onCountryChange = output<ICountry>();
+  readonly onCountryChange = output<string>();
 
-  ngOnInit(): void {
-    const selectedCountryCode = this.selectedCountryCode();
-    if (selectedCountryCode) {
-      const country = this.countriesExpectBlocked().find(
-        x => x.code === selectedCountryCode.toUpperCase()
-      );
+  private readonly selectedCountry$ = merge(
+    toObservable(this.value),
+    toObservable(this.selectedCountryCode).pipe(filter(Boolean))
+  ).pipe(
+    map(selectedValue => {
+      const country = selectedValue
+        ? this.countriesExpectBlocked().find(
+            x => x.code === selectedValue.toUpperCase()
+          )
+        : null;
+      return country ?? null;
+    })
+  );
 
-      if (country) {
-        this.selectedCountry.set(country);
-        this.onCountryChange.emit(country);
-      }
-    }
-  }
+  readonly selectedCountry = toSignal(this.selectedCountry$, {
+    initialValue: null,
+  });
 
   changeCountry(country: ICountry): void {
-    this.selectedCountry.set(country);
+    this.value.set(country.code);
+    this.onCountryChange.emit(country.code);
+
     this.displayList.set(false);
-    this.onCountryChange.emit(country);
     this.displaySearch.set(false);
     this.searchText.set('');
     this.scrollToFocusedItem();
@@ -180,11 +190,11 @@ export class CountryListComponent implements OnInit {
   }
 
   setFocusedIndex() {
-    if (this.selectedCountry()) {
+    if (this.value()) {
       const selectedIndex = [
         ...this.preferredCountryList(),
         ...this.filteredCountries(),
-      ].findIndex(country => country.code === this.selectedCountry()?.code);
+      ].findIndex(country => country.code === this.value());
       this.focusedIndex.set(selectedIndex);
     }
   }

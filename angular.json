@@ -25,10 +25,10 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
             "tsConfig": "projects/ngx-countries-dropdown/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "runnerConfig": "projects/ngx-countries-dropdown/vite.config.ts"
           }
         }
       }
@@ -51,7 +51,6 @@
               "base": "dist/sandbox"
             },
             "index": "projects/sandbox/src/index.html",
-            "polyfills": ["zone.js"],
             "tsConfig": "projects/sandbox/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -105,18 +104,12 @@
             "buildTarget": "sandbox:build"
           }
         },
+
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/sandbox/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "projects/sandbox/src/favicon.ico",
-              "projects/sandbox/src/assets"
-            ],
-            "styles": ["projects/sandbox/src/styles.scss"],
-            "scripts": []
+            "runnerConfig": "projects/sandbox/vite.config.ts"
           }
         }
       }

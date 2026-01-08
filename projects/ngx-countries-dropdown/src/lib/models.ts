@@ -13,14 +13,14 @@ export interface IConfig {
 }
 
 export interface ICountry {
-  name?: string;
+  name: string;
   code: string;
-  capital?: string;
-  region?: string;
-  currency?: ICurrency;
-  language?: ILanguage;
-  dialling_code?: string;
-  isoCode?: string;
+  capital: string;
+  region: string;
+  currency: ICurrency;
+  language: ILanguage;
+  dialling_code: string;
+  isoCode: string;
   demonym?: string;
 }
 
