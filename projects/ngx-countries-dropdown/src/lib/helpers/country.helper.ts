@@ -19,7 +19,7 @@ export const getPreferredCountries = (
 ): ICountry[] => {
   if (preferredCountryCodes.length > 0) {
     return countriesToFilter.filter(x =>
-      preferredCountryCodes.includes(x.code?.toLowerCase()!)
+      preferredCountryCodes.includes(x.code.toLowerCase())
     );
   }
 
@@ -32,7 +32,7 @@ export const getFilteredCountries = (
 ) => {
   if (countryCodes.length > 0) {
     return countriesToFilter.filter(
-      x => !countryCodes.includes(x.code?.toLowerCase()!)
+      x => !countryCodes.includes(x.code.toLowerCase())
     );
   }
   return countriesToFilter;
@@ -48,4 +48,12 @@ export const getCountriesBasedOnSearch = (
       x.dialling_code?.toLowerCase()?.includes(searchText?.toLowerCase()) ||
       x.code?.toLowerCase()?.includes(searchText?.toLowerCase())
   );
+};
+
+export const getCountryByCodes = (codes: string[]) => {
+  return COUNTRIES_LIST.filter(x => codes.includes(x.code.toUpperCase()));
+};
+
+export const getCountryByCode = (code: string): ICountry | undefined => {
+  return COUNTRIES_LIST.find(x => code.toUpperCase() === x.code.toUpperCase());
 };

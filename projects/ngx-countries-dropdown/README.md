@@ -82,11 +82,11 @@ npm i ngx-countries-dropdown
             ],
    ```
 
-3. Import NgxCountriesDropdownModule or CountryListStandaloneComponent
-   import NgxCountriesDropdownModule or CountryListStandaloneComponent in module where you want to add the countries dropdown, it may be app-module, some lazy loaded module or a standalone component
+3. Import NgxCountriesDropdownModule or CountryListComponent
+   import NgxCountriesDropdownModule or CountryListComponent in module where you want to add the countries dropdown, it may be app-module, some lazy loaded module or a standalone component
    ```
      imports: [
-    NgxCountriesDropdownModule
+    importProvidersFrom(NgxCountriesDropdownModule)
     ],
    ```
 4. Add the country component to the component where is being used
@@ -94,9 +94,11 @@ npm i ngx-countries-dropdown
 ```html
 <lib-country-list></lib-country-list>
 ```
+
 or
 
 If want to use standalone component
+
 ```html
 <lib-country-list-standalone></lib-country-list-standalone>
 ```
@@ -252,7 +254,8 @@ Handle country change event
 ```
 
 ```
-  onCountryChange(country: ICountry){
+  onCountryChange(country: string){
+    const country = getCountryByCode(countryCode);
     console.log(country);
   }
 ```
@@ -307,4 +310,5 @@ export interface ILanguage {
     nativeName?: string
 }
 ```
+
 Please provide a star on Github if this package helped you in any way.

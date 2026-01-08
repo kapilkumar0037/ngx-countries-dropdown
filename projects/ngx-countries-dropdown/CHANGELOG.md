@@ -1,8 +1,17 @@
 # Changelog
+
+## V5.0.0 (08-01-2026)
+
+- Updated to latest Angular version to 21
+- Migrate to vite
+- Use signal form control value
+- Control emit only code, getCountryByCode
+
 ## V4.0.3 (16-11-2025)
 
 - Updated to latest Angular version
 - country list exported
+
 ## V4.0.2 (19-10-2025)
 
 - Country list exported
