@@ -16,7 +16,7 @@ import {
   getFilteredCountries,
   getPreferredCountries,
 } from '../../helpers/country.helper';
-import { form, FormValueControl, Field } from '@angular/forms/signals';
+import { form, FormValueControl, FormField } from '@angular/forms/signals';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { filter, map, merge } from 'rxjs';
 
@@ -24,7 +24,7 @@ import { filter, map, merge } from 'rxjs';
   selector: 'lib-country-list',
   templateUrl: './country-list.component.html',
   styleUrls: ['./country-list.component.scss'],
-  imports: [Field],
+  imports: [FormField],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   host: {
