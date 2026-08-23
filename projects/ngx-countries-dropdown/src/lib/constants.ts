@@ -1478,7 +1478,7 @@ export const COUNTRIES_LIST: ICountry[] = [
     name: 'Haiti',
     code: 'HT',
     capital: 'Port-au-Prince',
-    region: 'Americas',
+    region: 'NA',
     currency: {
       code: 'HTG',
       name: 'Haitian gourde',
@@ -2004,7 +2004,7 @@ export const COUNTRIES_LIST: ICountry[] = [
   {
     name: 'Macau (澳門)',
     code: 'MO',
-    capital: '',
+    capital: 'Macau',
     region: 'AS',
     currency: {
       code: 'MOP',
@@ -2158,7 +2158,7 @@ export const COUNTRIES_LIST: ICountry[] = [
     name: 'Martinique',
     code: 'MQ',
     capital: 'Fort-de-France',
-    region: 'Americas',
+    region: 'NA',
     currency: {
       code: 'EUR',
       name: 'Euro',

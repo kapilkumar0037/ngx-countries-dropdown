@@ -33,6 +33,10 @@
   align-items: center;
 }
 
+.ipv_selected-details {
+  padding-right: 10px;
+}
+
 .ipv_arrow {
   margin-left: auto;
   width: 0;

@@ -1,12 +1,14 @@
 @let selectedCountryValue = selectedCountry();
-<div class="ipv_dropdown" (click)="$event.stopPropagation()">
-  <div class="ipv_selected-item" role="combobox" tabindex="0" [attr.title]="selectedCountryValue?.name"
-    (click)="toggleList()">
+<div class="ipv_dropdown">
+  <div class="ipv_selected-item" role="combobox" tabindex="0" aria-haspopup="listbox"
+    [attr.aria-expanded]="displayList()" aria-controls="ipv_country-list"
+    [attr.aria-activedescendant]="displayList() && focusedCountryCode() ? 'ipv_country-' + focusedCountryCode() : null"
+    [attr.title]="selectedCountryValue?.name" (click)="toggleList()" (keydown)="onKeydown($event)">
     @if (selectedCountryValue; as countryValue) {
     @if (!selectedCountryConfig().hideFlag) {
     <div class="ipv_flag ipv_{{ countryValue.code.toLowerCase() }}"></div>
     }
-    <div style="padding-right: 10px">
+    <div class="ipv_selected-details">
       @if (!selectedCountryConfig().hideCode) {
       <span class="ipv_code-box">{{ countryValue.code }}</span>
       }
@@ -49,60 +51,18 @@
     <div class="ipv_arrow"></div>
   </div>
   @if (displaySearch()) {
-  <input class="ipv_search_box" (keydown)="onKeydown($event)" (change)="onSearchTextChange()"
+  <input class="ipv_search_box" (keydown)="onKeydown($event)" (input)="onSearchTextChange()"
     [class.filtered]="searchText().length > 0" #search autocomplete="off" tabindex="0" [field]="searchTextForm" />
   }
   <div [class.ipv_hide]="!displayList()">
-    <ul class="ipv_country-list" role="listbox" aria-label="List of countries" #dropdownList>
+    <ul class="ipv_country-list" id="ipv_country-list" role="listbox" aria-label="List of countries" #dropdownList>
       @for (
       prefCountry of preferredCountryList();
       track prefCountry.code;
       let idx = $index
       ) {
-      <li class="ipv_country" [class.ipv_highlight]="
-            prefCountry.code === selectedCountryValue?.code ||
-            idx === focusedIndex()
-          " tabindex="0" role="option" (click)="changeCountry(prefCountry)">
-        @if (!countryListConfig().hideFlag) {
-        <div class="ipv_flag-box">
-          <div class="ipv_flag ipv_{{ prefCountry.code.toLowerCase() }}"></div>
-        </div>
-        }
-        @if (!countryListConfig().hideCode) {
-        <span class="ipv_code-box">{{ prefCountry?.code }}</span>
-        }
-        @if (!countryListConfig().hideName) {
-        <span class="ipv_country-name">{{ prefCountry.name }}</span>
-        }
-        @if (!countryListConfig().hideDialCode) {
-        <span class="ipv_dial-code">{{ prefCountry.dialling_code }}</span>
-        }
-        @if (countryListConfig().displayCurrencySymbol) {
-        <span class="ipv_country-name">{{
-          prefCountry.currency.symbol
-          }}</span>
-        }
-        @if (countryListConfig().displayCurrencyCode) {
-        <span class="ipv_country-name">{{
-          prefCountry.currency.code
-          }}</span>
-        }
-        @if (countryListConfig().displayCurrencyName) {
-        <span class="ipv_country-name">{{
-          prefCountry.currency.name
-          }}</span>
-        }
-        @if (countryListConfig().displayLanguageCode) {
-        <span class="ipv_country-name">{{
-          prefCountry.language.code?.toUpperCase()
-          }}</span>
-        }
-        @if (countryListConfig().displayLanguageName) {
-        <span class="ipv_country-name">{{
-          prefCountry.language.name
-          }}</span>
-        }
-      </li>
+      <ng-container
+        *ngTemplateOutlet="countryRow; context: { country: prefCountry, rowIndex: idx }"></ng-container>
       }
       @if (
       preferredCountryList().length > 0 && filteredCountries().length > 0
@@ -114,42 +74,8 @@
       track country.code;
       let idx = $index
       ) {
-      <li class="ipv_country" [class.ipv_highlight]="
-            country.code === selectedCountryValue?.code ||
-            idx + preferredCountryList().length === focusedIndex()
-          " tabindex="0" role="option" (click)="changeCountry(country)">
-        @if (!countryListConfig().hideFlag) {
-        <div class="ipv_flag-box">
-          <div class="ipv_flag ipv_{{ country.code.toLowerCase() }}"></div>
-        </div>
-        }
-        @if (!countryListConfig().hideCode) {
-        <span class="ipv_code-box">{{ country?.code }}</span>
-        }
-        @if (!countryListConfig().hideName) {
-        <span class="ipv_country-name">{{ country.name }}</span>
-        }
-        @if (!countryListConfig().hideDialCode) {
-        <span class="ipv_dial-code">{{ country.dialling_code }}</span>
-        }
-        @if (countryListConfig().displayCurrencySymbol) {
-        <span class="ipv_country-name">{{ country.currency.symbol }}</span>
-        }
-        @if (countryListConfig().displayCurrencyCode) {
-        <span class="ipv_country-name">{{ country.currency.code }}</span>
-        }
-        @if (countryListConfig().displayCurrencyName) {
-        <span class="ipv_country-name">{{ country.currency.name }}</span>
-        }
-        @if (countryListConfig().displayLanguageCode) {
-        <span class="ipv_country-name">{{
-          country.language.code?.toUpperCase()
-          }}</span>
-        }
-        @if (countryListConfig().displayLanguageName) {
-        <span class="ipv_country-name">{{ country.language.name }}</span>
-        }
-      </li>
+      <ng-container
+        *ngTemplateOutlet="countryRow; context: { country: country, rowIndex: idx + preferredCountryList().length }"></ng-container>
       }
       @if (
       preferredCountryList().length === 0 && filteredCountries().length === 0
@@ -159,3 +85,42 @@
     </ul>
   </div>
 </div>
+
+<ng-template #countryRow let-country="country" let-rowIndex="rowIndex">
+  <li class="ipv_country" [id]="'ipv_country-' + country.code" [class.ipv_highlight]="
+        country.code === selectedCountry()?.code || rowIndex === focusedIndex()
+      " [attr.aria-selected]="country.code === selectedCountry()?.code" tabindex="0" role="option"
+    (click)="changeCountry(country)">
+    @if (!countryListConfig().hideFlag) {
+    <div class="ipv_flag-box">
+      <div class="ipv_flag ipv_{{ country.code.toLowerCase() }}"></div>
+    </div>
+    }
+    @if (!countryListConfig().hideCode) {
+    <span class="ipv_code-box">{{ country.code }}</span>
+    }
+    @if (!countryListConfig().hideName) {
+    <span class="ipv_country-name">{{ country.name }}</span>
+    }
+    @if (!countryListConfig().hideDialCode) {
+    <span class="ipv_dial-code">{{ country.dialling_code }}</span>
+    }
+    @if (countryListConfig().displayCurrencySymbol) {
+    <span class="ipv_country-name">{{ country.currency.symbol }}</span>
+    }
+    @if (countryListConfig().displayCurrencyCode) {
+    <span class="ipv_country-name">{{ country.currency.code }}</span>
+    }
+    @if (countryListConfig().displayCurrencyName) {
+    <span class="ipv_country-name">{{ country.currency.name }}</span>
+    }
+    @if (countryListConfig().displayLanguageCode) {
+    <span class="ipv_country-name">{{
+      country.language.code?.toUpperCase()
+      }}</span>
+    }
+    @if (countryListConfig().displayLanguageName) {
+    <span class="ipv_country-name">{{ country.language.name }}</span>
+    }
+  </li>
+</ng-template>
