@@ -2,7 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  Injector,
+  afterNextRender,
   computed,
+  inject,
   input,
   model,
   output,
@@ -10,28 +13,33 @@ import {
   viewChild,
 } from '@angular/core';
 import { IConfig, ICountry } from '../../models';
+import { Continent, SearchField, SortBy } from '../../models';
 import {
   getAllowedCountries,
   getCountriesBasedOnSearch,
   getFilteredCountries,
   getPreferredCountries,
+  filterCountriesByRegions,
+  sortCountries,
 } from '../../helpers/country.helper';
 import { form, FormValueControl, Field } from '@angular/forms/signals';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
-import { filter, map, merge } from 'rxjs';
+import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'lib-country-list',
   templateUrl: './country-list.component.html',
   styleUrls: ['./country-list.component.scss'],
-  imports: [Field],
+  imports: [Field, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   host: {
-    '(document:click)': 'onDocumentClick()',
+    '(document:click)': 'onDocumentClick($event)',
   },
 })
 export class CountryListComponent implements FormValueControl<string | null> {
+  private readonly elementRef = inject(ElementRef);
+  private readonly injector = inject(Injector);
+
   readonly search = viewChild<ElementRef>('search');
   readonly dropdownList = viewChild<ElementRef>('dropdownList');
 
@@ -47,7 +55,11 @@ export class CountryListComponent implements FormValueControl<string | null> {
   );
 
   readonly filteredCountries = computed(() =>
-    getCountriesBasedOnSearch(this.standardCountries(), this.searchText())
+    getCountriesBasedOnSearch(
+      this.standardCountries(),
+      this.searchText(),
+      this.searchFields()
+    )
   );
 
   readonly value = model<string | null>(null);
@@ -72,49 +84,64 @@ export class CountryListComponent implements FormValueControl<string | null> {
 
   readonly countryListConfig = input<IConfig>({});
 
+  readonly allowedRegions = input<Continent[]>([]);
+
+  readonly sortBy = input<SortBy | null>(null);
+
+  readonly searchFields = input<SearchField[]>(['name', 'code', 'dialCode']);
+
   private readonly countryList = computed(() =>
     getAllowedCountries(this.allowedCountryCodes())
   );
 
-  readonly countriesExpectBlocked = computed(() =>
-    getFilteredCountries(this.countryList(), this.blockedCountryCodes())
-  );
+  readonly countriesExpectBlocked = computed(() => {
+    const withoutBlocked = getFilteredCountries(
+      this.countryList(),
+      this.blockedCountryCodes()
+    );
+    const byRegion = filterCountriesByRegions(
+      withoutBlocked,
+      this.allowedRegions()
+    );
+    const sort = this.sortBy();
+    return sort ? sortCountries(byRegion, sort) : byRegion;
+  });
 
   readonly preferredCountryList = computed(() => {
     const result = getPreferredCountries(
       this.countriesExpectBlocked(),
       this.preferredCountryCodes()
     );
-    return getCountriesBasedOnSearch(result, this.searchText());
+    return getCountriesBasedOnSearch(
+      result,
+      this.searchText(),
+      this.searchFields()
+    );
   });
 
   readonly onCountryChange = output<string>();
 
-  private readonly selectedCountry$ = merge(
-    toObservable(this.value),
-    toObservable(this.selectedCountryCode).pipe(filter(Boolean))
-  ).pipe(
-    map(selectedValue => {
-      const country = selectedValue
-        ? this.countriesExpectBlocked().find(
-            x => x.code === selectedValue.toUpperCase()
-          )
-        : null;
-      return country ?? null;
-    })
-  );
+  readonly selectedCountry = computed<ICountry | null>(() => {
+    const selectedValue = this.value() ?? this.selectedCountryCode();
+    if (!selectedValue) {
+      return null;
+    }
+    return (
+      this.countriesExpectBlocked().find(
+        x => x.code === selectedValue.toUpperCase()
+      ) ?? null
+    );
+  });
 
-  readonly selectedCountry = toSignal(this.selectedCountry$, {
-    initialValue: null,
+  readonly focusedCountryCode = computed<string | null>(() => {
+    const list = [...this.preferredCountryList(), ...this.filteredCountries()];
+    return list[this.focusedIndex()]?.code ?? null;
   });
 
   changeCountry(country: ICountry): void {
     this.value.set(country.code);
     this.onCountryChange.emit(country.code);
-
-    this.displayList.set(false);
-    this.displaySearch.set(false);
-    this.searchText.set('');
+    this.close();
     this.scrollToFocusedItem();
   }
 
@@ -124,21 +151,35 @@ export class CountryListComponent implements FormValueControl<string | null> {
       this.displaySearch.set(true);
       this.setFocusedIndex();
       this.scrollToFocusedItem();
-      setTimeout(() => {
-        this.search()?.nativeElement.focus();
-      }, 10);
+      afterNextRender(() => this.search()?.nativeElement.focus(), {
+        injector: this.injector,
+      });
     }
   }
 
-  onDocumentClick(): void {
+  private close(): void {
     this.displayList.set(false);
     this.displaySearch.set(false);
     this.searchText.set('');
   }
 
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.close();
+    }
+  }
+
   onKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.close();
+      return;
+    }
     const filteredCountriesLength =
       this.preferredCountryList().length + this.filteredCountries().length;
+    if (filteredCountriesLength === 0) {
+      return;
+    }
     if (event.key === 'ArrowDown') {
       event.preventDefault();
       this.focusedIndex.set(
@@ -152,13 +193,15 @@ export class CountryListComponent implements FormValueControl<string | null> {
           filteredCountriesLength
       );
       this.scrollToFocusedItem();
-    } else if (event.key === 'Enter' && this.focusedIndex() !== -1) {
+    } else if (event.key === 'Enter') {
       event.preventDefault();
-      this.changeCountry(
-        [...this.preferredCountryList(), ...this.filteredCountries()][
-          this.focusedIndex()
-        ]
-      );
+      const focusedCountry = [
+        ...this.preferredCountryList(),
+        ...this.filteredCountries(),
+      ][this.focusedIndex()];
+      if (focusedCountry) {
+        this.changeCountry(focusedCountry);
+      }
     }
   }
 
@@ -195,7 +238,7 @@ export class CountryListComponent implements FormValueControl<string | null> {
         ...this.preferredCountryList(),
         ...this.filteredCountries(),
       ].findIndex(country => country.code === this.value());
-      this.focusedIndex.set(selectedIndex);
+      this.focusedIndex.set(selectedIndex === -1 ? 0 : selectedIndex);
     }
   }
 }
