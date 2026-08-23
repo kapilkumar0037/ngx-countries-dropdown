@@ -22,14 +22,14 @@ import {
   filterCountriesByRegions,
   sortCountries,
 } from '../../helpers/country.helper';
-import { form, FormValueControl, Field } from '@angular/forms/signals';
+import { form, FormField, FormValueControl } from '@angular/forms/signals';
 import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'lib-country-list',
   templateUrl: './country-list.component.html',
   styleUrls: ['./country-list.component.scss'],
-  imports: [Field, NgTemplateOutlet],
+  imports: [FormField, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   host: {

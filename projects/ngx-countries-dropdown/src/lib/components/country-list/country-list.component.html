@@ -52,7 +52,7 @@
   </div>
   @if (displaySearch()) {
   <input class="ipv_search_box" (keydown)="onKeydown($event)" (input)="onSearchTextChange()"
-    [class.filtered]="searchText().length > 0" #search autocomplete="off" tabindex="0" [field]="searchTextForm" />
+    [class.filtered]="searchText().length > 0" #search autocomplete="off" tabindex="0" [formField]="searchTextForm" />
   }
   <div [class.ipv_hide]="!displayList()">
     <ul class="ipv_country-list" id="ipv_country-list" role="listbox" aria-label="List of countries" #dropdownList>

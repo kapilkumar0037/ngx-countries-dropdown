@@ -1,5 +1,12 @@
 # Changelog
 
+## V6.0.0 (23-08-2026)
+
+- Upgraded to Angular 22 and aligned the library with the latest Angular build tooling
+- Fixed standalone component and signal-form compatibility issues introduced by the upgrade
+- Resolved template and compiler issues affecting the country list input binding
+- Improved build stability and export compatibility for the library release
+
 ## V5.0.0 (08-01-2026)
 
 - Updated to latest Angular version to 21
